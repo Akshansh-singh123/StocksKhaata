@@ -12,32 +12,24 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import dagger.hilt.InstallIn;
-import dagger.hilt.components.SingletonComponent;
 
 @Module
-@InstallIn(SingletonComponent.class)
 public class ApplicationModule {
+    private final StocksRepository repository;
 
-    @Provides
-    public CustomApplication getApplication(Application application){
-        return (CustomApplication)application;
+    public ApplicationModule(Context context) {
+        StocksDatabase stocksDatabase = StocksDatabase.getInstance(context);
+        repository = new StocksRepository(stocksDatabase.stocksDao());
     }
 
     @Provides
-    @Singleton
-    public static StocksDatabase getStocksDatabase(CustomApplication application){
-        return StocksDatabase.getInstance(application);
+    @AppScope
+    public StocksRepository getRepository() {
+        return repository;
     }
 
     @Provides
-    @Singleton
-    public StocksRepository getRepository(StocksDatabase database) {
-        return new StocksRepository(database.stocksDao());
-    }
-
-    @Provides
-    @Singleton
+    @AppScope
     public ConfirmationDialogEventBus getDialogEventBus(){
         return new ConfirmationDialogEventBus();
     }

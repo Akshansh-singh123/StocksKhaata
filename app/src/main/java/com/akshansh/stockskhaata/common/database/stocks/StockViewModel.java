@@ -9,10 +9,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import dagger.hilt.android.HiltAndroidApp;
-import dagger.hilt.android.lifecycle.HiltViewModel;
 
-@HiltViewModel
 public class StockViewModel extends ViewModel {
     private final StocksRepository repository;
     private final LiveData<List<StockSchema>> listLiveData;

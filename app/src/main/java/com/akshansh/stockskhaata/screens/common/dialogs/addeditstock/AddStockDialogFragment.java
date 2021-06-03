@@ -19,9 +19,7 @@ import com.akshansh.stockskhaata.stocks.CUDStockUseCase;
 
 import javax.inject.Inject;
 
-import dagger.hilt.android.AndroidEntryPoint;
 
-@AndroidEntryPoint
 public class AddStockDialogFragment extends BaseBottomSheetDialog implements AddStockDialogViewMvc.Listener {
     private AddStockDialogViewMvc viewMvc;
     @Inject public ScreensNavigator screensNavigator;
@@ -32,7 +30,7 @@ public class AddStockDialogFragment extends BaseBottomSheetDialog implements Add
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e(TAG, "onCreate: "+System.currentTimeMillis());
+        getInjector().inject(this);
     }
 
     @Nullable

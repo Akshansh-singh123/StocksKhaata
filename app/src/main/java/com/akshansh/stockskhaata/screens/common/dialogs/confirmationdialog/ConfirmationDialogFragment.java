@@ -13,15 +13,14 @@ import com.akshansh.stockskhaata.screens.common.dialogs.BaseDialog;
 
 import javax.inject.Inject;
 
-import dagger.hilt.android.AndroidEntryPoint;
 
-@AndroidEntryPoint
 public class ConfirmationDialogFragment extends BaseDialog{
     @Inject public ConfirmationDialogEventBus dialogEventBus;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getInjector().inject(this);
     }
 
     @NonNull

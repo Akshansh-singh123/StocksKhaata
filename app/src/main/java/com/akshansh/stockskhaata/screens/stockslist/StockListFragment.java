@@ -13,9 +13,7 @@ import com.akshansh.stockskhaata.screens.common.controller.BaseFragment;
 
 import javax.inject.Inject;
 
-import dagger.hilt.android.AndroidEntryPoint;
 
-@AndroidEntryPoint
 public class StockListFragment extends BaseFragment {
     @Inject public StockListViewController stockListViewController;
     @Inject public ViewMvcFactory viewMvcFactory;
@@ -23,6 +21,7 @@ public class StockListFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getInjector().inject(this);
     }
 
     @Nullable

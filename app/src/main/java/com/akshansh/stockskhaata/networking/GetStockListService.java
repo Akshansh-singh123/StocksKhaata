@@ -13,11 +13,11 @@ import com.akshansh.stockskhaata.stocks.StockFilterTerm;
 import javax.inject.Inject;
 
 public class GetStockListService implements GetStockListEndpoint {
-    private final LifecycleOwner lifecycleOwner;
+    private final AppCompatActivity lifecycleOwner;
     private final StockViewModel viewModel;
 
     @Inject
-    public GetStockListService(LifecycleOwner lifecycleOwner,StockViewModel viewModel) {
+    public GetStockListService(AppCompatActivity lifecycleOwner,StockViewModel viewModel) {
         this.lifecycleOwner = lifecycleOwner;
         this.viewModel = viewModel;
     }

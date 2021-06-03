@@ -9,6 +9,7 @@ import javax.inject.Inject;
 public class StockViewModelFactory implements ViewModelProvider.Factory {
     private final StocksRepository repository;
 
+    @Inject
     public StockViewModelFactory(StocksRepository repository) {
         this.repository = repository;
     }

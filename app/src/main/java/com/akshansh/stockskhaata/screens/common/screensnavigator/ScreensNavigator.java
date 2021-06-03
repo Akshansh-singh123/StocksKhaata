@@ -3,12 +3,12 @@ package com.akshansh.stockskhaata.screens.common.screensnavigator;
 import androidx.navigation.NavController;
 
 import com.akshansh.stockskhaata.R;
+import com.akshansh.stockskhaata.common.dependencyinjection.activity.ActivityScope;
 
 import javax.inject.Inject;
 
-import dagger.hilt.android.scopes.ActivityScoped;
 
-@ActivityScoped
+@ActivityScope
 public class ScreensNavigator {
     private final NavController navController;
     private static final String TAG = "ScreensNavigator";

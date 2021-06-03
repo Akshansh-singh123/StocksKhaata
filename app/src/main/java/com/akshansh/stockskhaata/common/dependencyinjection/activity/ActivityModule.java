@@ -23,12 +23,14 @@ import com.akshansh.stockskhaata.stocks.GetStockListEndpoint;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
-import dagger.hilt.InstallIn;
-import dagger.hilt.android.components.ActivityComponent;
 
 @Module
-@InstallIn(ActivityComponent.class)
 public abstract class ActivityModule {
+
+    @Provides
+    public static Context getContext(AppCompatActivity activity){
+        return activity;
+    }
 
     @Provides
     public static NavController getNavController(@NonNull AppCompatActivity activity){
@@ -38,17 +40,7 @@ public abstract class ActivityModule {
     }
 
     @Provides
-    public static AppCompatActivity getAppCompatActivity(Activity activity){
-        return (AppCompatActivity)activity;
-    }
-
-    @Provides
-    public static LifecycleOwner getLifeCycleOwner(Activity activity){
-        return (AppCompatActivity)activity;
-    }
-
-    @Provides
-    public static LayoutInflater getLayoutInflater(Activity activity){
+    public static LayoutInflater getLayoutInflater(AppCompatActivity activity){
         return LayoutInflater.from(activity);
     }
 
@@ -56,8 +48,8 @@ public abstract class ActivityModule {
     public abstract GetStockListEndpoint getStockListService(GetStockListService getStockListService);
 
     @Provides
-    public static StockViewModel getStockViewModel(AppCompatActivity activity) {
-        return new ViewModelProvider(activity)
+    public static StockViewModel getStockViewModel(AppCompatActivity activity,StockViewModelFactory factory) {
+        return new ViewModelProvider(activity,factory)
                 .get(StockViewModel.class);
     }
 }

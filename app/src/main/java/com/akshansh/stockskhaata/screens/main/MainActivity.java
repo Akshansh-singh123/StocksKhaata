@@ -9,9 +9,7 @@ import com.akshansh.stockskhaata.R;
 import com.akshansh.stockskhaata.databinding.ActivityMainBinding;
 import com.akshansh.stockskhaata.screens.common.controller.BaseActivity;
 
-import dagger.hilt.android.AndroidEntryPoint;
 
-@AndroidEntryPoint
 public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
 
