@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">StocksKhaata</string>
+    <string name="add_text">Add</string>
+    <string name="filter_text">Filter</string>
+    <string name="home_title">Home</string>
+    <string name="stock_list_text">Stocks List</string>
+    <string name="save_text">Save</string>
+    <string name="stock_name_text">Stock name</string>
+    <string name="quantity_text">Quantity</string>
+    <string name="buy_price_text">Buying price</string>
+    <string name="selling_price_text">Selling price</string>
+    <string name="rupees_symbol">\u20b9</string>
+    <string name="add_stock_dialog">Add stock dialog</string>
+    <string name="trend_up_symbol">\u2b06</string>
+    <string name="trend_down_symbol">\u2b07</string>
+    <string name="expand_view_cd">expand view</string>
+    <string name="expand_text">Expand</string>
+    <string name="quantity_placeholder">Quantity</string>
+    <string name="p_and_l_text"><![CDATA[P&L]]> </string>
+    <string name="buy_price_header">Buy price</string>
+    <string name="sell_price_text">Sell price</string>
+    <string name="total_investment">Total investment</string>
+    <string name="collapse">Collapse</string>
+    <string name="no_stock_has_been_added_yet">No stock has been added yet.</string>
+    <string name="market">Market</string>
+    <string name="short_trade">Short trade</string>
+    <string name="short_sell">Short sell</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="favorite_button">favorite_button</string>
+    <string name="confirmation_dialog">Confirmation Dialog</string>
+    <string name="total_trades">Total trades</string>
+    <string name="net_growth">Net growth</string>
+    <string-array name="markets">
+        <item>National Stock Exchange (NSE)</item>
+        <item>Bombay Stock Exchange (BSE)</item>
+    </string-array>
+</resources>

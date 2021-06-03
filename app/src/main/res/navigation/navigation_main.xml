@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/main_nav_stock_list">
+    <fragment android:id="@+id/main_nav_stock_list"
+        android:name="com.akshansh.stockskhaata.screens.stockslist.StockListFragment"
+        android:label="@string/stock_list_text"
+        tools:layout="@layout/fragment_stocks_list">
+        <action
+            android:id="@+id/showDialog"
+            app:destination="@id/main_nav_addStock_dialog"/>
+        <action
+            android:id="@+id/toConfirmationDialog"
+            app:destination="@id/dialog_confirmation" />
+    </fragment>
+    <dialog android:id="@+id/main_nav_addStock_dialog"
+        android:name="com.akshansh.stockskhaata.screens.common.dialogs.addeditstock.AddStockDialogFragment"
+        android:label="@string/add_stock_dialog"
+        tools:layout="@layout/dialog_add_stock"/>
+    <dialog android:id="@+id/dialog_confirmation"
+        android:name="com.akshansh.stockskhaata.screens.common.dialogs.confirmationdialog.ConfirmationDialogFragment"
+        android:label="@string/confirmation_dialog" />
+</navigation>
