@@ -31,6 +31,8 @@
     <string name="confirmation_dialog">Confirmation Dialog</string>
     <string name="total_trades">Total trades</string>
     <string name="net_growth">Net growth</string>
+    <string name="back_button">Back button</string>
+    <string name="search_by_name">Search by Name</string>
     <string-array name="markets">
         <item>National Stock Exchange (NSE)</item>
         <item>Bombay Stock Exchange (BSE)</item>

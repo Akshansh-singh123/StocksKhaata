@@ -10,6 +10,7 @@ import com.akshansh.stockskhaata.screens.common.screensnavigator.ScreensNavigato
 import com.akshansh.stockskhaata.screens.common.toast.ToastHelper;
 import com.akshansh.stockskhaata.stocks.CUDStockUseCase;
 import com.akshansh.stockskhaata.stocks.FetchStockListUseCase;
+import com.akshansh.stockskhaata.stocks.StockFilterTerm;
 
 import java.util.List;
 
@@ -85,6 +86,21 @@ public class StockListViewController implements StockListViewMvc.Listener,
     @Override
     public void OnToolbarFilterOptionClicked() {
         toastHelper.showMessage("Filter");
+    }
+
+    @Override
+    public void OnSearchEventStart() {
+
+    }
+
+    @Override
+    public void OnSearchEventClosed() {
+        fetchStockListUseCase.fetchStocksList(null);
+    }
+
+    @Override
+    public void OnSearchTextChanged(String searchText) {
+        fetchStockListUseCase.fetchStocksList(new StockFilterTerm(searchText));
     }
 
     @Override

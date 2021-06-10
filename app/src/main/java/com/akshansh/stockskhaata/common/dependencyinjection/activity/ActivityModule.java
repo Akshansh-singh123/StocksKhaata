@@ -47,6 +47,7 @@ public abstract class ActivityModule {
     @Binds
     public abstract GetStockListEndpoint getStockListService(GetStockListService getStockListService);
 
+    @ActivityScope
     @Provides
     public static StockViewModel getStockViewModel(AppCompatActivity activity,StockViewModelFactory factory) {
         return new ViewModelProvider(activity,factory)

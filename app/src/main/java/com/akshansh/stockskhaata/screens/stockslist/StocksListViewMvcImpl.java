@@ -119,8 +119,24 @@ public class StocksListViewMvcImpl extends BaseObservableViewMvc<StockListViewMv
     }
 
     @Override
-    public void OnSearchButtonClicked() {
+    public void OnSearchEventStart() {
+        for(Listener listener: getListeners()){
+            listener.OnSearchEventStart();
+        }
+    }
 
+    @Override
+    public void OnSearchEventClosed() {
+        for(Listener listener: getListeners()){
+            listener.OnSearchEventClosed();
+        }
+    }
+
+    @Override
+    public void OnSearchTextChanged(String s) {
+        for(Listener listener: getListeners()){
+            listener.OnSearchTextChanged(s);
+        }
     }
 
     private void calculateStats(List<StockSchema> stocks) {

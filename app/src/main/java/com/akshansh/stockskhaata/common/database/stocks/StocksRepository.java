@@ -46,4 +46,8 @@ public class StocksRepository {
     public LiveData<List<StockSchema>> getAll(){
         return stockSchemas;
     }
+
+    public LiveData<List<StockSchema>> getFilteredStockList(String name) {
+        return stocksDao.getAllBySubName(name);
+    }
 }

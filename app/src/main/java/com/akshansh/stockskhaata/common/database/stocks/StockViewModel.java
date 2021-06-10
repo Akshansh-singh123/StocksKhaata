@@ -24,6 +24,10 @@ public class StockViewModel extends ViewModel {
         return listLiveData;
     }
 
+    public LiveData<List<StockSchema>> getFilteredStockList(String name){
+        return repository.getFilteredStockList(name);
+    }
+
     public void insert(StockSchema stockSchema){
         repository.insert(stockSchema);
     }

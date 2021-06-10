@@ -6,7 +6,9 @@ public interface ToolbarViewMvc extends ObservableViewMvc<ToolbarViewMvc.Listene
     interface Listener{
         void OnAddOptionItemSelected();
         void OnFilterOptionItemSelected();
-        void OnSearchButtonClicked();
+        void OnSearchEventStart();
+        void OnSearchEventClosed();
+        void OnSearchTextChanged(String s);
     }
     void setTitle(String title);
     void clearBinding();

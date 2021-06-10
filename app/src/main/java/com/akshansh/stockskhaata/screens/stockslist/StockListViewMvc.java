@@ -13,6 +13,9 @@ public interface StockListViewMvc extends ObservableViewMvc<StockListViewMvc.Lis
         void OnDeleteButtonClicked(StockSchema stock);
         void OnAddOptionClicked();
         void OnToolbarFilterOptionClicked();
+        void OnSearchEventStart();
+        void OnSearchEventClosed();
+        void OnSearchTextChanged(String searchText);
     }
     void bindStocks(List<StockSchema> stockSchemas);
     void clearBinding();
