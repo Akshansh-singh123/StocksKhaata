@@ -11,7 +11,6 @@ import javax.inject.Inject;
 @ActivityScope
 public class ScreensNavigator {
     private final NavController navController;
-    private static final String TAG = "ScreensNavigator";
 
     @Inject
     public ScreensNavigator(NavController navController) {
@@ -33,6 +32,14 @@ public class ScreensNavigator {
     public void toConfirmationDialog(){
         try {
             navController.navigate(R.id.toConfirmationDialog);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void toFilterDialog() {
+        try {
+            navController.navigate(R.id.toFilterDialog);
         }catch (Exception e){
             e.printStackTrace();
         }

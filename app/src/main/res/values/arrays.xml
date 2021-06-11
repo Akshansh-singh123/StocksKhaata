@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="buy_price">
+        <item>0.0</item>
+        <item>15000.0</item>
+    </array>
+    <array name="growth_percent">
+        <item>-10.0</item>
+        <item>10.0</item>
+    </array>
+
+</resources>

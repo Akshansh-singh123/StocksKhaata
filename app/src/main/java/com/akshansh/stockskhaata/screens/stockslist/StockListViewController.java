@@ -85,7 +85,7 @@ public class StockListViewController implements StockListViewMvc.Listener,
 
     @Override
     public void OnToolbarFilterOptionClicked() {
-        toastHelper.showMessage("Filter");
+        screensNavigator.toFilterDialog();
     }
 
     @Override

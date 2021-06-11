@@ -23,4 +23,6 @@
     <color name="trending_down_red_light">#AC2020</color>
     <color name="trend_up_green">#4A8E30</color>
     <color name="trend_up_green_light">#4c8c4a</color>
+    <color name="chip_selected_stroke_color">#618E5F</color>
+    <color name="chip_selected_background_color">#C6DFC3</color>
 </resources>

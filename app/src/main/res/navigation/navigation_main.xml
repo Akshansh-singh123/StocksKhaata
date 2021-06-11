@@ -14,6 +14,9 @@
         <action
             android:id="@+id/toConfirmationDialog"
             app:destination="@id/dialog_confirmation" />
+        <action
+            android:id="@+id/toFilterDialog"
+            app:destination="@id/main_nav_filterDialog" />
     </fragment>
     <dialog android:id="@+id/main_nav_addStock_dialog"
         android:name="com.akshansh.stockskhaata.screens.common.dialogs.addeditstock.AddStockDialogFragment"
@@ -22,4 +25,8 @@
     <dialog android:id="@+id/dialog_confirmation"
         android:name="com.akshansh.stockskhaata.screens.common.dialogs.confirmationdialog.ConfirmationDialogFragment"
         android:label="@string/confirmation_dialog" />
+    <dialog android:id="@+id/main_nav_filterDialog"
+        android:name="com.akshansh.stockskhaata.screens.common.dialogs.filterdialog.FilterDialog"
+        android:label="@string/filter_dialog"
+        tools:layout="@layout/filter_dialog"/>
 </navigation>

@@ -33,6 +33,29 @@
     <string name="net_growth">Net growth</string>
     <string name="back_button">Back button</string>
     <string name="search_by_name">Search by Name</string>
+    <string name="nse">NSE</string>
+    <string name="bse">BSE</string>
+    <string name="filter_market">Market</string>
+    <string name="select_method">Sort by</string>
+    <string name="stock_price">Stock price</string>
+    <string name="clear_filters">Clear filters</string>
+    <string name="apply_filters">Apply filters</string>
+    <string name="categories">Categories</string>
+    <string name="favorites">Favorites</string>
+    <string name="growth_percentage">Growth percentage</string>
+    <string name="filter_dialog">Filter Dialog</string>
+    <string name="sort_by">Sort by</string>
+    <string name="stock_price_high_to_low">Stock price: High to low</string>
+    <string name="stock_price_low_to_high">Stock price: Low to high</string>
+    <string name="investment_high_to_low">Investment: High to low</string>
+    <string name="investment_low_to_high">Investment: Low to high</string>
+    <string name="growth_high_to_low">Growth: High to low</string>
+    <string name="growth_low_to_high">Growth: Low to high</string>
+    <string name="name_z_a">Name: (Z-A)</string>
+    <string name="name_a_z">Name: (A-Z)</string>
+    <string name="filter_stocks">Filter stocks</string>
+    <string name="close_button">Close button</string>
+    <string name="add_a_stock">Add a stock</string>
     <string-array name="markets">
         <item>National Stock Exchange (NSE)</item>
         <item>Bombay Stock Exchange (BSE)</item>
