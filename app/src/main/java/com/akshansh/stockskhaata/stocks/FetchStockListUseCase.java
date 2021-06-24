@@ -4,7 +4,6 @@ import androidx.annotation.Nullable;
 
 import com.akshansh.stockskhaata.common.Constants.EndpointResultStatus;
 import com.akshansh.stockskhaata.common.database.stocks.StockSchema;
-import com.akshansh.stockskhaata.common.database.stocks.StockViewModel;
 import com.akshansh.stockskhaata.networking.NetworkException;
 
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class FetchStockListUseCase {
         listeners = new ArrayList<>();
     }
 
-    public void fetchStocksList(@Nullable StockFilterTerm filterTerm) {
+    public void fetchStocksList(@Nullable StockSearchTerm filterTerm) {
         try {
             getStockListEndpoint.getStocksList(filterTerm,new GetStockListEndpoint.Callback() {
                 @Override

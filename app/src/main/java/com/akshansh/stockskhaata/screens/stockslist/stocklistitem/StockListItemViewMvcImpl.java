@@ -173,11 +173,11 @@ public class StockListItemViewMvcImpl extends BaseObservableViewMvc<StockListIte
 
     private void hideDetails() {
         binding.detailsContainer.setVisibility(View.GONE);
-        binding.toggleDetailsButton.setText(Constants.EXPANDED);
+        binding.toggleDetailsButton.setText(Constants.EXPAND);
     }
 
     private void showDetails() {
         binding.detailsContainer.setVisibility(View.VISIBLE);
-        binding.toggleDetailsButton.setText(Constants.COLLAPSED);
+        binding.toggleDetailsButton.setText(Constants.COLLAPSE);
     }
 }

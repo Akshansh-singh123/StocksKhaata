@@ -1,10 +1,13 @@
 package com.akshansh.stockskhaata.screens.common.toolbar;
 
+import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.akshansh.stockskhaata.databinding.LayoutToolbarBinding;
 import com.akshansh.stockskhaata.screens.common.views.BaseObservableViewMvc;
@@ -12,6 +15,8 @@ import com.akshansh.stockskhaata.screens.common.views.BaseObservableViewMvc;
 public class ToolbarViewMvcImpl extends BaseObservableViewMvc<ToolbarViewMvc.Listener>
         implements ToolbarViewMvc {
     private LayoutToolbarBinding binding;
+    private TextWatcherListener watcher;
+    private static final String TAG = "ToolbarViewMvcImpl";
 
     public ToolbarViewMvcImpl(LayoutInflater inflater, ViewGroup parent) {
         binding = LayoutToolbarBinding.inflate(inflater,parent,false);
@@ -61,6 +66,7 @@ public class ToolbarViewMvcImpl extends BaseObservableViewMvc<ToolbarViewMvc.Lis
             @Override
             public void onClick(View v) {
                 enableTextSearch();
+                showKeyboard(binding.searchEditText);
                 for(Listener listener: getListeners()){
                     listener.OnSearchEventStart();
                 }
@@ -87,34 +93,48 @@ public class ToolbarViewMvcImpl extends BaseObservableViewMvc<ToolbarViewMvc.Lis
     }
 
     private void enableTextSearch() {
+        if(watcher != null){
+            binding.searchEditText.removeTextChangedListener(watcher);
+        }
         binding.searchTextLayout.setVisibility(View.VISIBLE);
+        setSearchClearButton();
+        setSearchEditButton();
+        watcher = new TextWatcherListener();
+        binding.searchEditText.addTextChangedListener(watcher);
+        binding.searchEditText.requestFocus();
+    }
+
+    private void setSearchClearButton(){
         binding.clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 binding.searchEditText.setText("");
             }
         });
+    }
+
+    private void setSearchEditButton(){
         binding.editTextBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 disableTextSearch();
+                hideKeyboard(v);
                 for(Listener listener: getListeners()){
                     listener.OnSearchEventClosed();
                 }
             }
         });
-        binding.searchEditText.addTextChangedListener(watcher);
-        binding.searchEditText.requestFocus();
     }
 
     private void disableTextSearch(){
+        binding.searchEditText.setText("");
         binding.searchTextLayout.setVisibility(View.GONE);
         binding.clearButton.setOnClickListener(null);
         binding.editTextBackButton.setOnClickListener(null);
         binding.searchEditText.removeTextChangedListener(watcher);
     }
 
-    private final TextWatcher watcher = new TextWatcher() {
+    private class TextWatcherListener implements TextWatcher {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -131,5 +151,5 @@ public class ToolbarViewMvcImpl extends BaseObservableViewMvc<ToolbarViewMvc.Lis
                 listener.OnSearchTextChanged(s.toString());
             }
         }
-    };
+    }
 }

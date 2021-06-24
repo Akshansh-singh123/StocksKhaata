@@ -6,8 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 
 public final class Constants {
-    public static final String EXPANDED = "EXPAND";
-    public static final String COLLAPSED = "COLLAPSE";
+    public static final String TAG_NAME_ASC = "NAME_ASC";
+    public static final String TAG_NAME_DESC = "NAME_DESC";
+    public static final String TAG_GROWTH_ASC = "GROWTH_ASC";
+    public static final String TAG_GROWTH_DESC = "GROWTH_DESC";
+    public static final String TAG_GROWTH_PERCENT_ASC = "GROWTH_PERCENT_ASC";
+    public static final String TAG_GROWTH_PERCENT_DESC = "GROWTH_PERCENT_DESC";
+    public static final String TAG_STOCK_PRICE_ASC = "STOCK_PRICE_ASC";
+    public static final String TAG_STOCK_PRICE_DESC = "STOCK_PRICE_DESC";
+    public static final String EXPAND = "EXPAND";
+    public static final String COLLAPSE = "COLLAPSE";
     public static final String BSE = "BSE";
     public static final String NSE = "NSE";
 

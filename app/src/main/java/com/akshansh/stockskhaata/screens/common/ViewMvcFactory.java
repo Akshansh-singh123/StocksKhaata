@@ -5,6 +5,8 @@ import android.view.ViewGroup;
 
 import com.akshansh.stockskhaata.screens.common.dialogs.addeditstock.AddStockDialogViewMvc;
 import com.akshansh.stockskhaata.screens.common.dialogs.addeditstock.AddStockDialogViewMvcImpl;
+import com.akshansh.stockskhaata.screens.common.dialogs.filterdialog.FilterDialogViewMvc;
+import com.akshansh.stockskhaata.screens.common.dialogs.filterdialog.FilterDialogViewMvcImpl;
 import com.akshansh.stockskhaata.screens.common.toolbar.ToolbarViewMvc;
 import com.akshansh.stockskhaata.screens.common.toolbar.ToolbarViewMvcImpl;
 import com.akshansh.stockskhaata.screens.stockslist.StockListViewMvc;
@@ -36,5 +38,9 @@ public class ViewMvcFactory {
 
     public ToolbarViewMvc getToolbarViewMvc(ViewGroup parent){
         return new ToolbarViewMvcImpl(inflater, parent);
+    }
+
+    public FilterDialogViewMvc getFilterDialogViewMvc(ViewGroup parent){
+        return new FilterDialogViewMvcImpl(inflater,parent);
     }
 }

@@ -116,7 +116,7 @@
         app:layout_constraintTop_toBottomOf="@+id/market_chip_group"/>
 
     <HorizontalScrollView
-        android:id="@+id/sort_chip_group"
+        android:id="@+id/sort_chip_group_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -127,6 +127,7 @@
         app:layout_constraintTop_toBottomOf="@id/select_sort_header">
 
         <com.google.android.material.chip.ChipGroup
+            android:id="@+id/sort_chip_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
@@ -187,11 +188,11 @@
                 app:textStartPadding="16dp" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/investment_asc"
+                android:id="@+id/growth_percent_asc"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/investment_low_to_high"
+                android:text="@string/growth_percent_low_to_high"
                 app:checkedIconEnabled="false"
                 app:chipBackgroundColor="@color/chip_background"
                 app:chipStrokeColor="@color/chip_stroke"
@@ -200,11 +201,11 @@
                 app:textStartPadding="16dp" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/investment_dsc"
+                android:id="@+id/growth_percent_dsc"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/investment_high_to_low"
+                android:text="@string/growth_percent_high_to_low"
                 app:checkedIconEnabled="false"
                 app:chipBackgroundColor="@color/chip_background"
                 app:chipStrokeColor="@color/chip_stroke"
@@ -249,7 +250,7 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/sort_chip_group"
+        app:layout_constraintTop_toBottomOf="@+id/sort_chip_group_scroll_view"
         tools:layout_editor_absoluteX="16dp" />
 
     <com.google.android.material.slider.RangeSlider
@@ -258,9 +259,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
-        android:stepSize="500.0"
-        android:valueFrom="0.0"
-        android:valueTo="100000.0"
+        tools:stepSize="500.0"
+        tools:valueFrom="0.0"
+        tools:valueTo="100000.0"
         app:labelBehavior="floating"
         app:labelStyle="@style/Widget.MaterialComponents.Tooltip"
         app:layout_constraintTop_toBottomOf="@id/stock_price_header"
@@ -285,9 +286,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
-        android:stepSize="2.5"
-        android:valueFrom="-50.0"
-        android:valueTo="100.0"
+        tools:stepSize="2.5"
+        tools:valueFrom="-50.0"
+        tools:valueTo="100.0"
         app:labelBehavior="floating"
         app:labelStyle="@style/Widget.MaterialComponents.Tooltip"
         app:layout_constraintTop_toBottomOf="@id/growth_percentage_header"
