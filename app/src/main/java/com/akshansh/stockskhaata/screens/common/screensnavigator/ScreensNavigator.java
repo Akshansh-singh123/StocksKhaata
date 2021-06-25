@@ -1,12 +1,16 @@
 package com.akshansh.stockskhaata.screens.common.screensnavigator;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 
 import com.akshansh.stockskhaata.R;
+import com.akshansh.stockskhaata.common.database.stocks.StockSchema;
 import com.akshansh.stockskhaata.common.dependencyinjection.activity.ActivityScope;
+import com.akshansh.stockskhaata.screens.stockslist.StockListFragmentDirections;
+import com.akshansh.stockskhaata.stocks.StockFilterTerm;
 
 import javax.inject.Inject;
-
 
 @ActivityScope
 public class ScreensNavigator {
@@ -17,9 +21,11 @@ public class ScreensNavigator {
         this.navController =  navController;
     }
 
-    public void toAddStockDialog(){
+    public void toAddStockDialog(@Nullable StockSchema schema){
         try {
-            navController.navigate(R.id.showDialog);
+            StockListFragmentDirections.ShowDialog action = StockListFragmentDirections
+                    .showDialog(schema);
+            navController.navigate(action);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -37,9 +43,11 @@ public class ScreensNavigator {
         }
     }
 
-    public void toFilterDialog() {
+    public void toFilterDialog(@Nullable StockFilterTerm filterTerm) {
         try {
-            navController.navigate(R.id.toFilterDialog);
+            StockListFragmentDirections.ToFilterDialog action = StockListFragmentDirections
+                    .toFilterDialog(filterTerm);
+            navController.navigate(action);
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -2,7 +2,9 @@ package com.akshansh.stockskhaata.stocks;
 
 import androidx.annotation.Nullable;
 
-public class StockFilterTerm {
+import java.io.Serializable;
+
+public class StockFilterTerm implements Serializable {
     private boolean NSE;
     private boolean BSE;
     private boolean favorite;

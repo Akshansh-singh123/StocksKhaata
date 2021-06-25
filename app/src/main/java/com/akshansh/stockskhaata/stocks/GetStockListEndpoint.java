@@ -13,6 +13,6 @@ public interface GetStockListEndpoint {
         void onFetchStockSuccessful(List<StockSchema> stocks);
         void onFetchStockFailure(EndpointResultStatus failureReason);
     }
-    void getStocksList(@Nullable StockSearchTerm filterTerm, Callback callback)
-            throws NetworkException;
+    void getStocksList(@Nullable StockSearchTerm searchTerm,@Nullable StockFilterTerm filterTerm,
+                       Callback callback) throws NetworkException;
 }

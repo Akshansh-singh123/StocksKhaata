@@ -1,9 +1,8 @@
 package com.akshansh.stockskhaata.common.database.stocks;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.sqlite.db.SupportSQLiteQuery;
 
 import java.util.List;
 
@@ -24,8 +23,21 @@ public class StockViewModel extends ViewModel {
         return listLiveData;
     }
 
-    public LiveData<List<StockSchema>> getFilteredStockList(String name){
-        return repository.getFilteredStockList(name);
+    public LiveData<List<StockSchema>> getStockListBySubName(String name){
+        return repository.getStockListBySubName(name);
+    }
+
+//    public LiveData<List<StockSchema>> getFilteredStockList(double buyPriceRangeLow,double buyPriceRangeHigh ,
+//                                                  double growthPercentRangeLow, double growthPercentRangeHigh,
+//                                                  List<String> markets,List<Integer> favorites,
+//                                                  List<Integer> shortSell,String sortOption){
+//        return repository.getFilteredStockList(buyPriceRangeLow,buyPriceRangeHigh,
+//                growthPercentRangeLow,growthPercentRangeHigh,
+//                markets,favorites,shortSell,sortOption);
+//    }
+
+    public LiveData<List<StockSchema>> getFilteredStockList(SupportSQLiteQuery query){
+        return repository.getFilteredStockList(query);
     }
 
     public void insert(StockSchema stockSchema){

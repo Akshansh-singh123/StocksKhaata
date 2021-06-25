@@ -1,5 +1,6 @@
 package com.akshansh.stockskhaata.screens.common.dialogs.addeditstock;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +27,15 @@ public class AddStockDialogViewMvcImpl extends BaseObservableViewMvc<AddStockDia
     private String sellPriceText;
     private String marketText;
     private String quantityText;
+    private final ArrayAdapter<String> adapter;
+    private static final String TAG = "AddStockDialogViewMvcIm";
 
     public AddStockDialogViewMvcImpl(LayoutInflater inflater, ViewGroup parent) {
         binding = DialogAddStockBinding.inflate(inflater,parent,false);
         setRootView(binding.getRoot());
         stock = null;
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+        adapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_list_item_1,Constants.markets);
         binding.marketSelect.setAdapter(adapter);
         setSaveButton();
@@ -70,7 +73,7 @@ public class AddStockDialogViewMvcImpl extends BaseObservableViewMvc<AddStockDia
     public void setMarket(@Nullable String market) {
         if (market != null) {
             if(Constants.markets.contains(market)){
-                binding.marketSelect.setText(market);
+                binding.marketSelect.setText(market,false);
             }
         }
     }
@@ -89,10 +92,17 @@ public class AddStockDialogViewMvcImpl extends BaseObservableViewMvc<AddStockDia
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateGetFields();
-                if(stock != null) {
-                    for (Listener listener : getListeners()) {
-                        listener.onSaveButtonClicked(stock, OperationModes.CREATE);
+                if(stock == null) {
+                    if(validateGetFields()) {
+                        for (Listener listener : getListeners()) {
+                            listener.onSaveButtonClicked(stock, OperationModes.CREATE);
+                        }
+                    }
+                }else{
+                    if(validateGetFields()) {
+                        for (Listener listener : getListeners()) {
+                            listener.onSaveButtonClicked(stock, OperationModes.UPDATE);
+                        }
                     }
                 }
             }
@@ -104,24 +114,37 @@ public class AddStockDialogViewMvcImpl extends BaseObservableViewMvc<AddStockDia
         binding = null;
     }
 
-    private void validateGetFields() {
+    private boolean validateGetFields() {
         if(isValidFieldEntries()) {
-            stock = new StockSchema(stockName,
-                    String.valueOf(System.currentTimeMillis()),
-                    Double.parseDouble(buyPriceText),
-                    Double.parseDouble(sellPriceText),
-                    Integer.parseInt(quantityText),
-                    marketText,
-                    Utils.getGrowth(buyPriceText, sellPriceText, quantityText),
-                    Utils.getGrowthPercentage(buyPriceText, sellPriceText, quantityText),
-                    false,
-                    isShortTrade());
+            if(stock == null) {
+                stock = new StockSchema(stockName,
+                        String.valueOf(System.currentTimeMillis()),
+                        Double.parseDouble(buyPriceText),
+                        Double.parseDouble(sellPriceText),
+                        Integer.parseInt(quantityText),
+                        marketText,
+                        Utils.getGrowth(buyPriceText, sellPriceText, quantityText),
+                        Utils.getGrowthPercentage(buyPriceText, sellPriceText, quantityText),
+                        false,
+                        isShortTrade());
+            }else{
+                stock.setStockName(stockName);
+                stock.setBuyPrice(Double.parseDouble(buyPriceText));
+                stock.setSellPrice(Double.parseDouble(sellPriceText));
+                stock.setQuantity(Integer.parseInt(quantityText));
+                stock.setMarket(marketText);
+                stock.setGrowth(Utils.getGrowth(buyPriceText, sellPriceText, quantityText));
+                stock.setGrowthPercentage(Utils.getGrowthPercentage(buyPriceText,
+                        sellPriceText, quantityText));
+                stock.setShorted(isShortTrade());
+            }
         }
+        return isValidFieldEntries();
     }
 
     private boolean isValidStockName(){
         stockName = binding.stockNameEditText.getText().toString().trim();
-        if(isEmpty(stockName)){
+        if(stockName.equals("")){
             binding.stockNameLayout.setError("This field cannot be empty");
             return false;
         }
@@ -130,7 +153,7 @@ public class AddStockDialogViewMvcImpl extends BaseObservableViewMvc<AddStockDia
 
     private boolean isValidBuyPrice(){
         buyPriceText = binding.buyPriceEditText.getText().toString().trim();
-        if(isEmpty(buyPriceText)){
+        if(buyPriceText.equals("")){
             binding.buyPriceLayout.setError("This field cannot be empty");
             return false;
         }
@@ -139,7 +162,7 @@ public class AddStockDialogViewMvcImpl extends BaseObservableViewMvc<AddStockDia
 
     private boolean isValidSellPrice(){
         sellPriceText = binding.sellPriceEditText.getText().toString().trim();
-        if(isEmpty(sellPriceText)){
+        if(sellPriceText.equals("")){
             binding.sellPriceLayout.setError("This field cannot be empty");
             return false;
         }
@@ -148,7 +171,7 @@ public class AddStockDialogViewMvcImpl extends BaseObservableViewMvc<AddStockDia
 
     private boolean isValidQuantity(){
         quantityText = binding.quantityEditText.getText().toString().trim();
-        if(isEmpty(quantityText)){
+        if(quantityText.equals("")){
             binding.quantityLayout.setError("This field cannot be empty");
             return false;
         }
@@ -157,7 +180,7 @@ public class AddStockDialogViewMvcImpl extends BaseObservableViewMvc<AddStockDia
 
     private boolean isValidMarketText(){
         marketText = binding.marketSelect.getText().toString().trim();
-        if(isEmpty(marketText)){
+        if(marketText.equals("")){
             binding.marketSelectLayout.setError("This field cannot be empty");
             return false;
         }

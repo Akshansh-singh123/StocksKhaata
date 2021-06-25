@@ -1,5 +1,7 @@
 package com.akshansh.stockskhaata.screens.common.dialogs.filterdialog;
 
+import androidx.annotation.Nullable;
+
 import com.akshansh.stockskhaata.screens.common.views.ObservableViewMvc;
 import com.akshansh.stockskhaata.stocks.StockFilterTerm;
 
@@ -14,7 +16,7 @@ public interface FilterDialogViewMvc extends ObservableViewMvc<FilterDialogViewM
     void setEnableBSEOption(boolean enabled);
     void setEnableFavoriteOption(boolean enabled);
     void setEnableShortOption(boolean enabled);
-    void setEnableSortOption(String tag);
+    void setEnableSortOption(@Nullable String tag);
     void setStockPriceRange(float low, float high);
     void setStockPriceSelectedRange(float low, float high);
     void setGrowthPercentRange(float low, float high);

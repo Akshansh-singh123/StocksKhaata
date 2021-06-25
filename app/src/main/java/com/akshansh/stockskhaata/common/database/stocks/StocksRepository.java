@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.WorkerThread;
 import androidx.lifecycle.LiveData;
+import androidx.sqlite.db.SupportSQLiteQuery;
 
 import java.util.List;
 
@@ -12,7 +13,6 @@ import javax.inject.Inject;
 public class StocksRepository {
     private final StocksDao stocksDao;
     private LiveData<List<StockSchema>> stockSchemas;
-    private static final String TAG = "StocksRepository";
 
     public StocksRepository(StocksDao stocksDao) {
         this.stocksDao = stocksDao;
@@ -47,7 +47,11 @@ public class StocksRepository {
         return stockSchemas;
     }
 
-    public LiveData<List<StockSchema>> getFilteredStockList(String name) {
+    public LiveData<List<StockSchema>> getStockListBySubName(String name) {
         return stocksDao.getAllBySubName(name);
+    }
+
+    public LiveData<List<StockSchema>> getFilteredStockList(SupportSQLiteQuery query){
+        return stocksDao.getFiltered(query);
     }
 }

@@ -1,8 +1,6 @@
 package com.akshansh.stockskhaata.screens.common.dialogs.filterdialog;
 
-import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.akshansh.stockskhaata.common.Constants;
-import com.akshansh.stockskhaata.databinding.FilterDialogBinding;
 import com.akshansh.stockskhaata.screens.common.ViewMvcFactory;
 import com.akshansh.stockskhaata.screens.common.dialogs.BaseBottomSheetDialog;
 import com.akshansh.stockskhaata.stocks.StockFilterTerm;
@@ -20,12 +16,15 @@ import javax.inject.Inject;
 
 public class FilterDialog extends BaseBottomSheetDialog implements FilterDialogViewMvc.Listener {
     @Inject public ViewMvcFactory viewMvcFactory;
+    @Inject public FilterDialogEventBus filterDialogEventBus;
     private FilterDialogViewMvc viewMvc;
+    private StockFilterTerm term;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getInjector().inject(this);
+        term = FilterDialogArgs.fromBundle(getArguments()).getFilterTerms();
     }
 
     @Nullable
@@ -34,15 +33,21 @@ public class FilterDialog extends BaseBottomSheetDialog implements FilterDialogV
                              @Nullable Bundle savedInstanceState) {
         viewMvc = viewMvcFactory.getFilterDialogViewMvc(container);
         viewMvc.bindView();
-        viewMvc.setGrowthPercentRange(-10,10);
-        viewMvc.setGrowthPercentSelectedRange(0,10);
-        viewMvc.setStockPriceRange(0,3500);
+        viewMvc.setGrowthPercentRange(-100, 100);
+        viewMvc.setStockPriceRange(0, 10000);
+        viewMvc.setGrowthPercentSelectedRange(-10,10);
         viewMvc.setStockPriceSelectedRange(0,1000);
-        viewMvc.setEnableBSEOption(true);
-        viewMvc.setEnableNSEOption(true);
-        viewMvc.setEnableFavoriteOption(true);
-        viewMvc.setEnableShortOption(true);
-        viewMvc.setEnableSortOption(Constants.TAG_NAME_DESC);
+        if(term != null) {
+            viewMvc.setGrowthPercentSelectedRange(term.getGrowthPercentLow(),
+                    term.getGrowthPercentHigh());
+            viewMvc.setStockPriceSelectedRange(term.getStockPriceLow(),
+                    term.getStockPriceHigh());
+            viewMvc.setEnableBSEOption(term.isBSE());
+            viewMvc.setEnableNSEOption(term.isNSE());
+            viewMvc.setEnableFavoriteOption(term.isFavorite());
+            viewMvc.setEnableShortOption(term.isShortSell());
+            viewMvc.setEnableSortOption(term.getSortOption());
+        }
         return viewMvc.getRootView();
     }
 
@@ -66,11 +71,13 @@ public class FilterDialog extends BaseBottomSheetDialog implements FilterDialogV
 
     @Override
     public void OnClearButtonClicked() {
+        filterDialogEventBus.onClearButtonClicked();
         dismiss();
     }
 
     @Override
     public void OnApplyButtonClicked(StockFilterTerm stockFilterTerm) {
+        filterDialogEventBus.onApplyButtonClicked(stockFilterTerm);
         dismiss();
     }
 }

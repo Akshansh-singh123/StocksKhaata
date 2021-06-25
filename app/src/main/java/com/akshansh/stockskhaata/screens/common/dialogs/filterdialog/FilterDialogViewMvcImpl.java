@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.akshansh.stockskhaata.R;
 import com.akshansh.stockskhaata.common.Constants;
@@ -62,14 +63,14 @@ public class FilterDialogViewMvcImpl extends BaseObservableViewMvc<FilterDialogV
                 }
             }
         });
-        binding.nameFilterAsc.setTag(TAG_NAME_ASC);
-        binding.nameFilterDsc.setTag(TAG_NAME_DESC);
-        binding.growthAsc.setTag(TAG_GROWTH_ASC);
-        binding.growthDsc.setTag(TAG_GROWTH_DESC);
-        binding.growthPercentAsc.setTag(TAG_GROWTH_PERCENT_ASC);
-        binding.growthPercentDsc.setTag(TAG_GROWTH_PERCENT_DESC);
-        binding.stockPriceAsc.setTag(TAG_STOCK_PRICE_ASC);
-        binding.stockPriceDsc.setTag(TAG_STOCK_PRICE_DESC);
+        binding.nameFilterAsc.setTag(TAG_NAME_DESC);
+        binding.nameFilterDsc.setTag(TAG_NAME_ASC);
+        binding.growthAsc.setTag(TAG_GROWTH_DESC);
+        binding.growthDsc.setTag(TAG_GROWTH_ASC);
+        binding.growthPercentAsc.setTag(TAG_GROWTH_PERCENT_DESC);
+        binding.growthPercentDsc.setTag(TAG_GROWTH_PERCENT_ASC);
+        binding.stockPriceAsc.setTag(TAG_STOCK_PRICE_DESC);
+        binding.stockPriceDsc.setTag(TAG_STOCK_PRICE_ASC);
     }
 
     @Override
@@ -93,33 +94,35 @@ public class FilterDialogViewMvcImpl extends BaseObservableViewMvc<FilterDialogV
     }
 
     @Override
-    public void setEnableSortOption(String tag) {
-        switch (tag){
-            case TAG_NAME_ASC:
-                binding.nameFilterAsc.setChecked(true);
-                return;
-            case TAG_NAME_DESC:
-                binding.nameFilterDsc.setChecked(true);
-                return;
-            case TAG_GROWTH_ASC:
-                binding.growthAsc.setChecked(true);
-                return;
-            case TAG_GROWTH_DESC:
-                binding.growthDsc.setChecked(true);
-                return;
-            case TAG_GROWTH_PERCENT_ASC:
-                binding.growthPercentAsc.setChecked(true);
-                return;
-            case TAG_GROWTH_PERCENT_DESC:
-                binding.growthPercentDsc.setChecked(true);
-            case TAG_STOCK_PRICE_ASC:
-                binding.stockPriceAsc.setChecked(true);
-                return;
-            case TAG_STOCK_PRICE_DESC:
-                binding.stockPriceDsc.setChecked(true);
-                return;
-            default:
-                throw new IllegalArgumentException("unknown tag passed");
+    public void setEnableSortOption(@Nullable String tag) {
+        if(tag != null) {
+            switch (tag) {
+                case TAG_NAME_DESC:
+                    binding.nameFilterAsc.setChecked(true);
+                    return;
+                case TAG_NAME_ASC:
+                    binding.nameFilterDsc.setChecked(true);
+                    return;
+                case TAG_GROWTH_DESC:
+                    binding.growthAsc.setChecked(true);
+                    return;
+                case TAG_GROWTH_ASC:
+                    binding.growthDsc.setChecked(true);
+                    return;
+                case TAG_GROWTH_PERCENT_DESC:
+                    binding.growthPercentAsc.setChecked(true);
+                    return;
+                case TAG_GROWTH_PERCENT_ASC:
+                    binding.growthPercentDsc.setChecked(true);
+                case TAG_STOCK_PRICE_DESC:
+                    binding.stockPriceAsc.setChecked(true);
+                    return;
+                case TAG_STOCK_PRICE_ASC:
+                    binding.stockPriceDsc.setChecked(true);
+                    return;
+                default:
+                    throw new IllegalArgumentException("unknown tag passed");
+            }
         }
     }
 

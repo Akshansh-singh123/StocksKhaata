@@ -27,9 +27,9 @@ public class FetchStockListUseCase {
         listeners = new ArrayList<>();
     }
 
-    public void fetchStocksList(@Nullable StockSearchTerm filterTerm) {
+    public void fetchStocksList(@Nullable StockSearchTerm searchTerm, StockFilterTerm filterTerm) {
         try {
-            getStockListEndpoint.getStocksList(filterTerm,new GetStockListEndpoint.Callback() {
+            getStockListEndpoint.getStocksList(searchTerm,filterTerm,new GetStockListEndpoint.Callback() {
                 @Override
                 public void onFetchStockSuccessful(List<StockSchema> stocks) {
                     for (Listener listener : listeners) {

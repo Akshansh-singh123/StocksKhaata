@@ -25,12 +25,13 @@ public class AddStockDialogFragment extends BaseBottomSheetDialog implements Add
     @Inject public ScreensNavigator screensNavigator;
     @Inject public CUDStockUseCase cudStockUseCase;
     @Inject public ViewMvcFactory viewMvcFactory;
-    private static final String TAG = "AddStockDialogFragment";
+    private StockSchema editSchema;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getInjector().inject(this);
+        editSchema = AddStockDialogFragmentArgs.fromBundle(getArguments()).getStockSchema();
     }
 
     @Nullable
@@ -39,14 +40,21 @@ public class AddStockDialogFragment extends BaseBottomSheetDialog implements Add
                              @Nullable  ViewGroup container,
                              @Nullable  Bundle savedInstanceState) {
         viewMvc = viewMvcFactory.getStockDialogViewMvc(null);
-        Log.e(TAG, "onCreateView: "+System.currentTimeMillis());
+        if(editSchema != null){
+            viewMvc.setStock(editSchema);
+            viewMvc.setStockName(editSchema.getStockName());
+            viewMvc.setBuyPrice(String.valueOf(editSchema.getBuyPrice()));
+            viewMvc.setSellPrice(String.valueOf(editSchema.getSellPrice()));
+            viewMvc.setStockQuantity(String.valueOf(editSchema.getQuantity()));
+            viewMvc.setMarket(editSchema.getMarket());
+            viewMvc.setIsShort(editSchema.isShorted());
+        }
         return viewMvc.getRootView();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.e(TAG, "onViewCreated: "+ System.currentTimeMillis());
     }
 
     @Override

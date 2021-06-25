@@ -7,6 +7,7 @@ import com.akshansh.stockskhaata.common.CustomApplication;
 import com.akshansh.stockskhaata.common.database.stocks.StocksDatabase;
 import com.akshansh.stockskhaata.common.database.stocks.StocksRepository;
 import com.akshansh.stockskhaata.screens.common.dialogs.confirmationdialog.ConfirmationDialogEventBus;
+import com.akshansh.stockskhaata.screens.common.dialogs.filterdialog.FilterDialogEventBus;
 
 import javax.inject.Singleton;
 
@@ -32,6 +33,12 @@ public class ApplicationModule {
     @AppScope
     public ConfirmationDialogEventBus getDialogEventBus(){
         return new ConfirmationDialogEventBus();
+    }
+
+    @Provides
+    @AppScope
+    public FilterDialogEventBus getFilterDialogEventBus(){
+        return new FilterDialogEventBus();
     }
 }
 
