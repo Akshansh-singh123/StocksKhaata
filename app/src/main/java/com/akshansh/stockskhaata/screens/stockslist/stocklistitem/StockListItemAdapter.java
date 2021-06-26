@@ -22,7 +22,7 @@ public class StockListItemAdapter extends RecyclerView.Adapter<StockListItemAdap
     }
 
     private final ViewMvcFactory viewMvcFactory;
-    private final List<StockSchema> stocks = new ArrayList<>();
+    private List<StockSchema> stocks = new ArrayList<>();
     private final Listener listener;
     private final Set<Integer> expandedViewPositions = new HashSet<>();
 
@@ -32,8 +32,7 @@ public class StockListItemAdapter extends RecyclerView.Adapter<StockListItemAdap
     }
 
     public void bindView(List<StockSchema> stocks){
-        this.stocks.clear();
-        this.stocks.addAll(stocks);
+        this.stocks = new ArrayList<>(stocks);
         notifyDataSetChanged();
     }
 

@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface StockListViewMvc extends ObservableViewMvc<StockListViewMvc.Listener> {
     interface Listener{
-        void OnFavoriteButtonClicked(StockSchema stock);
-        void OnEditButtonClicked(StockSchema stock);
-        void OnDeleteButtonClicked(StockSchema stock);
+        void OnListItemFavoriteButtonClicked(StockSchema stock);
+        void OnListItemEditButtonClicked(StockSchema stock);
+        void OnListItemDeleteButtonClicked(StockSchema stock);
         void OnAddOptionClicked();
         void OnToolbarFilterOptionClicked();
         void OnSearchEventStart();

@@ -27,15 +27,6 @@ public class StockViewModel extends ViewModel {
         return repository.getStockListBySubName(name);
     }
 
-//    public LiveData<List<StockSchema>> getFilteredStockList(double buyPriceRangeLow,double buyPriceRangeHigh ,
-//                                                  double growthPercentRangeLow, double growthPercentRangeHigh,
-//                                                  List<String> markets,List<Integer> favorites,
-//                                                  List<Integer> shortSell,String sortOption){
-//        return repository.getFilteredStockList(buyPriceRangeLow,buyPriceRangeHigh,
-//                growthPercentRangeLow,growthPercentRangeHigh,
-//                markets,favorites,shortSell,sortOption);
-//    }
-
     public LiveData<List<StockSchema>> getFilteredStockList(SupportSQLiteQuery query){
         return repository.getFilteredStockList(query);
     }

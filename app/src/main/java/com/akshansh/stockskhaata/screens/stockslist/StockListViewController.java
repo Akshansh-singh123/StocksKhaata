@@ -73,17 +73,17 @@ public class StockListViewController implements StockListViewMvc.Listener,
     }
 
     @Override
-    public void OnFavoriteButtonClicked(StockSchema stock) {
+    public void OnListItemFavoriteButtonClicked(StockSchema stock) {
         cudStockUseCase.CUDStock(UPDATE,stock);
     }
 
     @Override
-    public void OnEditButtonClicked(StockSchema stock) {
+    public void OnListItemEditButtonClicked(StockSchema stock) {
         screensNavigator.toAddStockDialog(stock);
     }
 
     @Override
-    public void OnDeleteButtonClicked(StockSchema stock) {
+    public void OnListItemDeleteButtonClicked(StockSchema stock) {
         deleteStock = stock;
         screensNavigator.toConfirmationDialog();
     }

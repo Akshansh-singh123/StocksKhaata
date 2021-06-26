@@ -180,4 +180,9 @@ public class StockSchema implements Parcelable {
             return new StockSchema[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return stockName;
+    }
 }

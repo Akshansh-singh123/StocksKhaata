@@ -24,6 +24,11 @@ public class GetStockListService implements GetStockListEndpoint {
     private final AppCompatActivity lifecycleOwner;
     private final StockViewModel viewModel;
     private LiveData<List<StockSchema>> stockListAll;
+    private LiveData<List<StockSchema>> stockListFiltered;
+    private LiveData<List<StockSchema>> stockListSearch;
+    private LiveData<List<StockSchema>> stockListFilteredSearch;
+
+    private static final String TAG = "GetStockListService";
 
     @Inject
     public GetStockListService(AppCompatActivity lifecycleOwner,StockViewModel viewModel) {
@@ -36,16 +41,39 @@ public class GetStockListService implements GetStockListEndpoint {
                               @Nullable StockFilterTerm filterTerm,
                               Callback callback) throws NetworkException {
         if(searchTerm != null && filterTerm != null){
-
+            stockListFilteredSearch = viewModel.getFilteredStockList(FilterQueryHelper
+                    .getFilterSearchQuery(filterTerm,searchTerm));
+            removeObserver(stockListAll,stockListSearch,stockListFiltered);
+            observe(stockListFilteredSearch,callback);
         }else if(searchTerm != null){
-            stockListAll = viewModel
-                    .getStockListBySubName(String.format("%%%s%%",searchTerm.getName()));
+            stockListSearch = viewModel.getStockListBySubName(String.format("%%%s%%",searchTerm.getName()));
+            removeObserver(stockListFiltered,stockListAll,stockListFilteredSearch);
+            observe(stockListSearch,callback);
         }else if(filterTerm != null){
-            stockListAll = viewModel
-                    .getFilteredStockList(FilterQueryHelper.getFilterQuery(filterTerm));
-        }else{
+            stockListFiltered = viewModel.getFilteredStockList(FilterQueryHelper.getFilterQuery(filterTerm));
+            removeObserver(stockListAll,stockListSearch,stockListFilteredSearch);
+            observe(stockListFiltered,callback);
+        }else {
             stockListAll = viewModel.getAll();
+            removeObserver(stockListFiltered,stockListSearch,stockListFilteredSearch);
+            observe(stockListAll,callback);
         }
-        stockListAll.observe(lifecycleOwner,callback::onFetchStockSuccessful);
+    }
+
+    private void removeObserver(LiveData<List<StockSchema>> data1, LiveData<List<StockSchema>> data2
+            ,LiveData<List<StockSchema>> data3) {
+        if(data1!= null)
+           data1.removeObservers(lifecycleOwner);
+        if(data2 != null)
+            data2.removeObservers(lifecycleOwner);
+        if(data3 != null)
+            data3.removeObservers(lifecycleOwner);
+    }
+
+    private void observe(LiveData<List<StockSchema>> data, Callback callback) {
+        data.observe(lifecycleOwner,stocks->{
+            Log.e(TAG, "observe: "+stocks.size());
+            callback.onFetchStockSuccessful(stocks);
+        });
     }
 }

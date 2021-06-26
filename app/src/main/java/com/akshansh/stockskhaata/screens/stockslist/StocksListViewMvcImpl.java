@@ -1,7 +1,6 @@
 package com.akshansh.stockskhaata.screens.stockslist;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +62,7 @@ public class StocksListViewMvcImpl extends BaseObservableViewMvc<StockListViewMv
             binding.emptyTextView.setVisibility(View.GONE);
             binding.statsHud.setVisibility(View.VISIBLE);
             adapter.bindView(stocks);
+            binding.recyclerView.scrollToPosition(stocks.size()-1);
             calculateStats(stocks);
             if(!initialized) {
                 binding.netGrowthText.setVisibility(View.INVISIBLE);
@@ -88,21 +88,21 @@ public class StocksListViewMvcImpl extends BaseObservableViewMvc<StockListViewMv
     @Override
     public void OnFavoriteButtonClicked(StockSchema stockSchema) {
         for(Listener listener: getListeners()){
-            listener.OnFavoriteButtonClicked(stockSchema);
+            listener.OnListItemFavoriteButtonClicked(stockSchema);
         }
     }
 
     @Override
     public void OnEditButtonClicked(StockSchema stockSchema) {
         for(Listener listener: getListeners()){
-            listener.OnEditButtonClicked(stockSchema);
+            listener.OnListItemEditButtonClicked(stockSchema);
         }
     }
 
     @Override
     public void OnDeleteButtonClicked(StockSchema stockSchema) {
         for(Listener listener: getListeners()){
-            listener.OnDeleteButtonClicked(stockSchema);
+            listener.OnListItemDeleteButtonClicked(stockSchema);
         }
     }
 

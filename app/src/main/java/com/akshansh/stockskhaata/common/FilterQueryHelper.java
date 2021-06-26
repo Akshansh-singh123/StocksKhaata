@@ -17,7 +17,7 @@ public class FilterQueryHelper {
     }
 
     private static String getFilterSearchQueryCommand(StockFilterTerm term, StockSearchTerm searchTerm) {
-        return getFilterQueryCommand(term)+" LIKE '"+searchTerm.getName()+"'";
+        return getFilterQueryCommand(term)+" AND stock_name LIKE '%"+searchTerm.getName()+"%'";
     }
 
     private static String getFilterQueryCommand(StockFilterTerm term){
