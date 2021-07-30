@@ -12,13 +12,9 @@ import javax.inject.Inject;
 
 public class StocksRepository {
     private final StocksDao stocksDao;
-    private LiveData<List<StockSchema>> stockSchemas;
 
     public StocksRepository(StocksDao stocksDao) {
         this.stocksDao = stocksDao;
-        StocksDatabase.executor.execute(()->{
-            stockSchemas = this.stocksDao.getAll();
-        });
     }
 
     @WorkerThread
@@ -40,15 +36,6 @@ public class StocksRepository {
         StocksDatabase.executor.execute(()->{
             stocksDao.updateStock(stockSchema);
         });
-    }
-
-    @WorkerThread
-    public LiveData<List<StockSchema>> getAll(){
-        return stockSchemas;
-    }
-
-    public LiveData<List<StockSchema>> getStockListBySubName(String name) {
-        return stocksDao.getAllBySubName(name);
     }
 
     public LiveData<List<StockSchema>> getFilteredStockList(SupportSQLiteQuery query){

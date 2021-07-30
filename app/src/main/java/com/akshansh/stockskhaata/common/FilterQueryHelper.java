@@ -8,6 +8,15 @@ import com.akshansh.stockskhaata.stocks.StockSearchTerm;
 import java.util.Locale;
 
 public class FilterQueryHelper {
+    public static SimpleSQLiteQuery getAllQuery(){
+        return new SimpleSQLiteQuery("SELECT * FROM stocks");
+    }
+
+    public static SimpleSQLiteQuery getAllSearchQuery(StockSearchTerm searchTerm){
+        return new SimpleSQLiteQuery("SELECT * FROM stocks WHERE stock_name LIKE '%"
+                +searchTerm.getName()+"%'");
+    }
+
     public static SimpleSQLiteQuery getFilterQuery(StockFilterTerm term){
         return new SimpleSQLiteQuery(getFilterQueryCommand(term));
     }

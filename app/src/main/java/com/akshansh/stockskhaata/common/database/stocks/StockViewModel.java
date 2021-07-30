@@ -11,20 +11,10 @@ import javax.inject.Inject;
 
 public class StockViewModel extends ViewModel {
     private final StocksRepository repository;
-    private final LiveData<List<StockSchema>> listLiveData;
 
     @Inject
     public StockViewModel(StocksRepository repository) {
         this.repository = repository;
-        listLiveData = repository.getAll();
-    }
-
-    public LiveData<List<StockSchema>> getAll(){
-        return listLiveData;
-    }
-
-    public LiveData<List<StockSchema>> getStockListBySubName(String name){
-        return repository.getStockListBySubName(name);
     }
 
     public LiveData<List<StockSchema>> getFilteredStockList(SupportSQLiteQuery query){

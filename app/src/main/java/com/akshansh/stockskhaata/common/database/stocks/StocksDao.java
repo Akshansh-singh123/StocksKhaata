@@ -16,14 +16,8 @@ import java.util.List;
 
 @Dao
 public interface StocksDao {
-    @Query("SELECT * FROM stocks WHERE stock_name LIKE :name")
-    LiveData<List<StockSchema>> getAllBySubName(String name);
-
     @RawQuery(observedEntities = StockSchema.class)
     LiveData<List<StockSchema>> getFiltered(SupportSQLiteQuery query);
-
-    @Query("SELECT * FROM stocks")
-    LiveData<List<StockSchema>> getAll();
 
     @Update
     void updateStock(StockSchema stockSchema);
