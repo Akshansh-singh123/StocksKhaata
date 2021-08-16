@@ -17,7 +17,7 @@
             android:id="@+id/stock_name_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Tcs"
+            tools:text="TATASTEEL"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textAllCaps="true"
@@ -177,14 +177,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.5"/>
+
             <View
+                android:id="@+id/view"
                 android:layout_width="1dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="8dp"
                 android:background="@color/light_gray"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/growth_header"
-                app:layout_constraintStart_toStartOf="@id/vertical_guideline"/>
+                app:layout_constraintBottom_toBottomOf="@+id/growth__percentage_header"
+                app:layout_constraintStart_toStartOf="@id/vertical_guideline"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <!-- Heading start -->
             <TextView
@@ -240,6 +241,18 @@
                 app:layout_constraintBottom_toBottomOf="@+id/growth_price_text"
                 app:layout_constraintEnd_toStartOf="@id/vertical_guideline"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/growth__percentage_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/p_amp_l"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/growth_price_percentage_text"
+                app:layout_constraintEnd_toStartOf="@id/vertical_guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/growth_price_text" />
+
             <!-- Heading end -->
 
             <!-- Text details start -->
@@ -329,7 +342,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/trend_up_green"
-                tools:text="\u2b06 \u20b9 888.88 (88.88%)"
+                tools:text="\u2b06 \u20b9 888.88"
                 android:textSize="16sp"
                 android:textAllCaps="true"
                 android:layout_marginStart="8dp"
@@ -343,6 +356,26 @@
                 android:layout_marginBottom="2dp"
                 app:layout_constraintStart_toStartOf="@id/vertical_guideline"
                 app:layout_constraintTop_toBottomOf="@id/investment_price_text"
+                app:layout_constraintEnd_toEndOf="parent"/>
+            <TextView
+                android:id="@+id/growth_price_percentage_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/trend_up_green"
+                tools:text="88.88%"
+                android:textSize="16sp"
+                android:textAllCaps="true"
+                android:layout_marginStart="8dp"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:gravity="end"
+                android:layout_marginBottom="2dp"
+                app:layout_constraintStart_toStartOf="@id/vertical_guideline"
+                app:layout_constraintTop_toBottomOf="@id/growth_price_text"
                 app:layout_constraintEnd_toEndOf="parent"/>
             <!-- Text details end -->
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,8 @@ package com.akshansh.stockskhaata.common.dependencyinjection.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
@@ -26,6 +28,11 @@ import dagger.Provides;
 
 @Module
 public abstract class ActivityModule {
+
+    @Provides
+    public static Handler getUiThread(){
+        return new Handler(Looper.getMainLooper());
+    }
 
     @Provides
     public static Context getContext(AppCompatActivity activity){

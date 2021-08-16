@@ -57,10 +57,25 @@ public class FilterQueryHelper {
     private static String getRangeQuery(float stockPriceLow, float stockPriceHigh,
                                         float growthPercentLow, float growthPercentHigh) {
         String out = "";
-        out = String.format(Locale.ENGLISH,
-                "buy_price BETWEEN %f AND %f AND growth_percentage BETWEEN %f AND %f",
-                stockPriceLow,stockPriceHigh,growthPercentLow, growthPercentHigh);
-        return out;
+        if(stockPriceHigh > 10000){
+            out = String.format(Locale.ENGLISH,
+                    "buy_price > %f ",
+                    stockPriceLow);
+        }else{
+            out = String.format(Locale.ENGLISH,
+                    "buy_price BETWEEN %f AND %f ",stockPriceLow,stockPriceHigh);
+        }
+
+        if(growthPercentLow >= -100 && growthPercentHigh <= 100){
+            out += String.format(Locale.ENGLISH,"AND growth_percentage BETWEEN %f AND %f",
+                    growthPercentLow, growthPercentHigh);
+        }else if(growthPercentLow < -100 && growthPercentHigh <= 100){
+            out += String.format(Locale.ENGLISH,"AND growth_percentage < %f",
+                    growthPercentHigh);
+        }else if(growthPercentLow >= -100 && growthPercentHigh > 100){
+            out += String.format(Locale.ENGLISH,"AND growth_percentage > %f",growthPercentLow);
+        }
+        return out.trim();
     }
 
     private static String getMarketQuery(boolean nse, boolean bse) {

@@ -80,4 +80,9 @@ public class AddStockDialogFragment extends BaseBottomSheetDialog implements Add
         cudStockUseCase.CUDStock(operation,stockSchema);
         screensNavigator.navigateUp();
     }
+
+    @Override
+    public void onCloseButtonClicked() {
+        dismiss();
+    }
 }

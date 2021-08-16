@@ -33,8 +33,8 @@ public class FilterDialog extends BaseBottomSheetDialog implements FilterDialogV
                              @Nullable Bundle savedInstanceState) {
         viewMvc = viewMvcFactory.getFilterDialogViewMvc(container);
         viewMvc.bindView();
-        viewMvc.setGrowthPercentRange(-100, 100);
-        viewMvc.setStockPriceRange(0, 10000);
+        viewMvc.setGrowthPercentRange(-102, 102);
+        viewMvc.setStockPriceRange(0, 10250);
         viewMvc.setGrowthPercentSelectedRange(-10,10);
         viewMvc.setStockPriceSelectedRange(0,1000);
         if(term != null) {

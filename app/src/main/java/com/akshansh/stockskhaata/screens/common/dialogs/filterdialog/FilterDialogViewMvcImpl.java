@@ -143,7 +143,7 @@ public class FilterDialogViewMvcImpl extends BaseObservableViewMvc<FilterDialogV
     public void setGrowthPercentRange(float low,float high) {
         binding.growthPercentageSlider.setValueFrom(low);
         binding.growthPercentageSlider.setValueTo(high);
-        binding.stockPriceRangeSlider.setStepSize(2);
+        binding.growthPercentageSlider.setStepSize(2);
         binding.growthPercentageSlider.setLabelFormatter(new GrowthPercentLabelFormatter());
     }
 
@@ -180,13 +180,15 @@ public class FilterDialogViewMvcImpl extends BaseObservableViewMvc<FilterDialogV
         return null;
     }
 
-
     private class StockPriceLabelFormatter implements LabelFormatter{
         @NonNull
         @Override
         public String getFormattedValue(float value) {
-            return String.format(Locale.ENGLISH,"%s %d",getString(R.string.rupees_symbol),
-                    Math.round(value));
+            if(value <= 10000)
+                return String.format(Locale.ENGLISH,"%s %d",getString(R.string.rupees_symbol),
+                         Math.round(value));
+            else
+                return getString(R.string.rupees_symbol)+" 10000+";
         }
     }
 
@@ -194,7 +196,12 @@ public class FilterDialogViewMvcImpl extends BaseObservableViewMvc<FilterDialogV
         @NonNull
         @Override
         public String getFormattedValue(float value) {
-            return String.format(Locale.ENGLISH,"%d%%",Math.round(value));
+            if(Math.abs(value) <= 100)
+                return String.format(Locale.ENGLISH,"%d%%",Math.round(value));
+            else if(value > 100)
+                return ">100%";
+            else
+                return "<100%";
         }
     }
 }

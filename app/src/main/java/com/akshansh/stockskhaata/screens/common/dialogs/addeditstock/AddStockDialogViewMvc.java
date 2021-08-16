@@ -10,6 +10,7 @@ import com.akshansh.stockskhaata.screens.common.views.ObservableViewMvc;
 public interface AddStockDialogViewMvc extends ObservableViewMvc<AddStockDialogViewMvc.Listener> {
     interface Listener{
         void onSaveButtonClicked(StockSchema stockSchema, OperationModes operation);
+        void onCloseButtonClicked();
     }
 
     void setStockName(@Nullable String stockName);

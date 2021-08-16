@@ -6,50 +6,46 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
-import com.akshansh.stockskhaata.common.Constants;
 import com.akshansh.stockskhaata.common.FilterQueryHelper;
 import com.akshansh.stockskhaata.common.database.stocks.StockSchema;
-import com.akshansh.stockskhaata.common.database.stocks.StockViewModel;
+import com.akshansh.stockskhaata.common.database.stocks.StocksRepository;
 import com.akshansh.stockskhaata.stocks.GetStockListEndpoint;
 import com.akshansh.stockskhaata.stocks.StockFilterTerm;
 import com.akshansh.stockskhaata.stocks.StockSearchTerm;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
 
 public class GetStockListService implements GetStockListEndpoint {
     private final AppCompatActivity lifecycleOwner;
-    private final StockViewModel viewModel;
+    private final StocksRepository repository;
     private LiveData<List<StockSchema>> stockList;
 
     private static final String TAG = "GetStockListService";
 
     @Inject
-    public GetStockListService(AppCompatActivity lifecycleOwner,StockViewModel viewModel) {
+    public GetStockListService(AppCompatActivity lifecycleOwner,
+                               StocksRepository repository){
         this.lifecycleOwner = lifecycleOwner;
-        this.viewModel = viewModel;
+        this.repository = repository;
     }
 
     @Override
     public void getStocksList(@Nullable StockSearchTerm searchTerm,
                               @Nullable StockFilterTerm filterTerm,
                               Callback callback) throws NetworkException {
+        if(stockList != null)
+            stockList.removeObservers(lifecycleOwner);
         if(searchTerm != null && filterTerm != null){
-            stockList = viewModel.getFilteredStockList(FilterQueryHelper
-                    .getFilterSearchQuery(filterTerm,searchTerm));
+            stockList = repository.getFilteredStockList(FilterQueryHelper.getFilterSearchQuery(filterTerm,searchTerm));
         }else if(searchTerm != null){
-            stockList = viewModel.getFilteredStockList(FilterQueryHelper
-                    .getAllSearchQuery(searchTerm));
+            stockList = repository.getFilteredStockList(FilterQueryHelper.getAllSearchQuery(searchTerm));
         }else if(filterTerm != null){
-            stockList = viewModel.getFilteredStockList(FilterQueryHelper
-                    .getFilterQuery(filterTerm));
+            stockList = repository.getFilteredStockList(FilterQueryHelper.getFilterQuery(filterTerm));
         }else {
-            stockList = viewModel.getFilteredStockList(FilterQueryHelper.getAllQuery());
+            stockList = repository.getFilteredStockList(FilterQueryHelper.getAllQuery());
         }
-        stockList.removeObservers(lifecycleOwner);
         observe(stockList,callback);
     }
 

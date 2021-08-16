@@ -1,10 +1,16 @@
 package com.akshansh.stockskhaata.screens.stockslist;
 
+import android.animation.ObjectAnimator;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AnticipateInterpolator;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.akshansh.stockskhaata.R;
@@ -19,22 +25,22 @@ import java.util.List;
 import java.util.Locale;
 
 public class StocksListViewMvcImpl extends BaseObservableViewMvc<StockListViewMvc.Listener>
-        implements StockListViewMvc, StockListItemAdapter.Listener, ToolbarViewMvc.Listener {
+        implements StockListViewMvc, StockListItemAdapter.Listener, ToolbarViewMvc.Listener, View.OnScrollChangeListener {
     private FragmentStocksListBinding binding;
     private final StockListItemAdapter adapter;
     private final ToolbarViewMvc toolbarViewMvc;
     private boolean initialized = false;
+    private boolean fabHidden = false;
+    private int scrollPositive;
+    private int scrollNegative;
 
     public StocksListViewMvcImpl(LayoutInflater inflater, ViewGroup parent, ViewMvcFactory viewMvcFactory) {
         binding = FragmentStocksListBinding.inflate(inflater,parent,false);
         setRootView(binding.getRoot());
         adapter = new StockListItemAdapter(viewMvcFactory,this);
         toolbarViewMvc = viewMvcFactory.getToolbarViewMvc(parent);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        manager.setStackFromEnd(true);
-        manager.setReverseLayout(true);
-        binding.recyclerView.setLayoutManager(manager);
-        binding.recyclerView.setAdapter(adapter);
+        scrollPositive = 0;
+        scrollNegative = 0;
         initToolbar();
     }
 
@@ -48,21 +54,25 @@ public class StocksListViewMvcImpl extends BaseObservableViewMvc<StockListViewMv
     }
 
     @Override
-    public void bindStocks(List<StockSchema> stocks) {
-        binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for(Listener listener: getListeners()){
-                    listener.OnAddOptionClicked();
-                }
+    public void bindStocks(List<StockSchema> stocks, boolean liked) {
+        binding.floatingActionButton.setOnClickListener(v -> {
+            for(Listener listener: getListeners()){
+                listener.OnAddOptionClicked();
             }
         });
         if(stocks.size() != 0) {
+            LinearLayoutManager manager = new LinearLayoutManager(getContext());
+            manager.setStackFromEnd(true);
+            manager.setReverseLayout(true);
+            binding.recyclerView.setLayoutManager(manager);
+            binding.recyclerView.setAdapter(adapter);
             binding.recyclerView.setVisibility(View.VISIBLE);
             binding.emptyTextView.setVisibility(View.GONE);
             binding.statsHud.setVisibility(View.VISIBLE);
+            binding.recyclerView.setOnScrollChangeListener(this);
             adapter.bindView(stocks);
-            binding.recyclerView.scrollToPosition(stocks.size()-1);
+            if(!liked)
+                binding.recyclerView.scrollToPosition(stocks.size()-1);
             calculateStats(stocks);
             if(!initialized) {
                 binding.netGrowthText.setVisibility(View.INVISIBLE);
@@ -139,6 +149,24 @@ public class StocksListViewMvcImpl extends BaseObservableViewMvc<StockListViewMv
         }
     }
 
+    @Override
+    public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+        if(oldScrollY<0){
+            scrollNegative = Math.max(-250,oldScrollY+scrollNegative);
+        }else{
+            scrollPositive = Math.min(250,oldScrollY+scrollPositive);
+        }
+        if(scrollNegative == -250){
+            if(!fabHidden)
+                hideFAB();
+            scrollNegative = 0;
+        }else if(scrollPositive == 250){
+            if(fabHidden)
+                showFAB();
+            scrollPositive = 0;
+        }
+    }
+
     private void calculateStats(List<StockSchema> stocks) {
         new Handler().post(new Runnable() {
             @Override
@@ -169,5 +197,22 @@ public class StocksListViewMvcImpl extends BaseObservableViewMvc<StockListViewMv
         binding.tradesText.setVisibility(View.VISIBLE);
         binding.progressBarGrowth.setVisibility(View.GONE);
         binding.progressBarTrades.setVisibility(View.GONE);
+    }
+
+    private void hideFAB() {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(binding.floatingActionButton,"translationX",1000f);
+        animator.setDuration(300);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.start();
+        fabHidden = true;
+    }
+
+    private void showFAB() {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(binding.floatingActionButton,
+                "translationX",0f);
+        animator.setDuration(300);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.start();
+        fabHidden = false;
     }
 }

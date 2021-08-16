@@ -106,9 +106,11 @@ public class StockListItemViewMvcImpl extends BaseObservableViewMvc<StockListIte
     @Override
     public void setGrowth(double growth, double growthPercentage) {
         String growthHeader = getGrowthTextFormatted(growth,growthPercentage);
-        String growthText = getGrowthText(growth,growthPercentage);
-        binding.growthPriceText.setText(growthText);
+        binding.growthPriceText.setText(String.format(Locale.ENGLISH,"%s %.2f",
+                getString(R.string.rupees_symbol),growth));
         binding.growthText.setText(growthHeader);
+        binding.growthPricePercentageText.setText(String.format(Locale.ENGLISH,
+                "%.2f%%",growthPercentage));
     }
 
     @Override
@@ -127,46 +129,39 @@ public class StockListItemViewMvcImpl extends BaseObservableViewMvc<StockListIte
         if(growth >= 0){
             binding.growthText.setTextColor(getContext().getColor(R.color.trend_up_green));
             binding.growthPriceText.setTextColor(getContext().getColor(R.color.trend_up_green));
+            binding.growthPricePercentageText.setTextColor(getContext().getColor(R.color.trend_up_green));
         }else{
             binding.growthText.setTextColor(getContext().getColor(R.color.trending_down_red));
             binding.growthPriceText.setTextColor(getContext().getColor(R.color.trending_down_red));
+            binding.growthPricePercentageText.setTextColor(getContext().getColor(R.color.trending_down_red));
         }
     }
 
     @Override
     public void setFavoriteButton(StockSchema stock){
-        binding.favoriteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stock.setFavorite(!stock.isFavorite());
-                isFavorite(stock.isFavorite());
-                for(Listener listener: getListeners()){
-                    listener.onFavoriteButtonClicked(stock);
-                }
+        binding.favoriteButton.setOnClickListener(v -> {
+            stock.setFavorite(!stock.isFavorite());
+            isFavorite(stock.isFavorite());
+            for(Listener listener: getListeners()){
+                listener.onFavoriteButtonClicked(stock);
             }
         });
     }
 
     @Override
     public void setEditButton(StockSchema stock) {
-        binding.editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for(Listener listener: getListeners()){
-                    listener.onEditButtonClicked(stock);
-                }
+        binding.editButton.setOnClickListener(v -> {
+            for(Listener listener: getListeners()){
+                listener.onEditButtonClicked(stock);
             }
         });
     }
 
     @Override
     public void setDeleteButton(StockSchema stock) {
-        binding.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for(Listener listener: getListeners()){
-                    listener.onDeleteButtonClicked(stock);
-                }
+        binding.deleteButton.setOnClickListener(v -> {
+            for(Listener listener: getListeners()){
+                listener.onDeleteButtonClicked(stock);
             }
         });
     }

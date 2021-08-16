@@ -58,6 +58,7 @@
     <string name="add_a_stock">Add a stock</string>
     <string name="growth_percent_high_to_low">Growth %: (High to Low)</string>
     <string name="growth_percent_low_to_high">Growth %: Low to High</string>
+    <string name="p_amp_l"><![CDATA[P&L %]]></string>
     <string-array name="markets">
         <item>National Stock Exchange (NSE)</item>
         <item>Bombay Stock Exchange (BSE)</item>

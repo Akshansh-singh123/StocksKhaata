@@ -31,6 +31,7 @@ public class StockListViewController implements StockListViewMvc.Listener,
     private StockSchema deleteStock;
     private StockSearchTerm searchTerm;
     private StockFilterTerm filterTerm;
+    private boolean liked;
 
     @Inject
     public StockListViewController(ToastHelper toastHelper
@@ -47,6 +48,7 @@ public class StockListViewController implements StockListViewMvc.Listener,
         this.filterDialogEventBus = filterDialogEventBus;
         searchTerm = null;
         filterTerm = null;
+        liked = false;
     }
 
     public void bindView(StockListViewMvc viewMvc){
@@ -74,6 +76,7 @@ public class StockListViewController implements StockListViewMvc.Listener,
 
     @Override
     public void OnListItemFavoriteButtonClicked(StockSchema stock) {
+        liked = true;
         cudStockUseCase.CUDStock(UPDATE,stock);
     }
 
@@ -117,7 +120,8 @@ public class StockListViewController implements StockListViewMvc.Listener,
 
     @Override
     public void onStocksListFetchSuccessful(List<StockSchema> stocks) {
-        viewMvc.bindStocks(stocks);
+        viewMvc.bindStocks(stocks,liked);
+        liked = false;
     }
 
     @Override
