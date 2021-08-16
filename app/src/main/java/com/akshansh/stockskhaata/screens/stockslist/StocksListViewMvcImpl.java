@@ -10,8 +10,10 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AnticipateInterpolator;
 
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.akshansh.stockskhaata.R;
 import com.akshansh.stockskhaata.common.database.stocks.StockSchema;
@@ -25,7 +27,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class StocksListViewMvcImpl extends BaseObservableViewMvc<StockListViewMvc.Listener>
-        implements StockListViewMvc, StockListItemAdapter.Listener, ToolbarViewMvc.Listener, View.OnScrollChangeListener {
+        implements StockListViewMvc, StockListItemAdapter.Listener, ToolbarViewMvc.Listener,
+        View.OnScrollChangeListener {
     private FragmentStocksListBinding binding;
     private final StockListItemAdapter adapter;
     private final ToolbarViewMvc toolbarViewMvc;
