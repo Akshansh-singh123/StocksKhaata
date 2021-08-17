@@ -21,7 +21,7 @@
     <string name="sell_price_text">Sell price</string>
     <string name="total_investment">Total investment</string>
     <string name="collapse">Collapse</string>
-    <string name="no_stock_has_been_added_yet">No stock has been added yet.</string>
+    <string name="no_stock_has_been_added_yet">No stock found</string>
     <string name="market">Market</string>
     <string name="short_trade">Short trade</string>
     <string name="short_sell">Short sell</string>

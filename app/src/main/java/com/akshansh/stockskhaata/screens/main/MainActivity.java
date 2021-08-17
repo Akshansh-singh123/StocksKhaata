@@ -6,8 +6,11 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 
 import com.akshansh.stockskhaata.R;
+import com.akshansh.stockskhaata.common.WorkManagerHelper;
 import com.akshansh.stockskhaata.databinding.ActivityMainBinding;
 import com.akshansh.stockskhaata.screens.common.controller.BaseActivity;
+
+import javax.inject.Inject;
 
 
 public class MainActivity extends BaseActivity {

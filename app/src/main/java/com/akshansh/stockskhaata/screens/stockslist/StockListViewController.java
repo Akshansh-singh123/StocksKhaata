@@ -3,6 +3,7 @@ package com.akshansh.stockskhaata.screens.stockslist;
 import android.util.Log;
 
 import com.akshansh.stockskhaata.common.Constants;
+import com.akshansh.stockskhaata.common.WorkManagerHelper;
 import com.akshansh.stockskhaata.common.database.stocks.StockSchema;
 import com.akshansh.stockskhaata.screens.common.dialogs.confirmationdialog.ConfirmationDialogEventBus;
 import com.akshansh.stockskhaata.screens.common.dialogs.filterdialog.FilterDialogEventBus;
@@ -28,6 +29,7 @@ public class StockListViewController implements StockListViewMvc.Listener,
     private final CUDStockUseCase cudStockUseCase;
     private final ConfirmationDialogEventBus dialogEventBus;
     private final FilterDialogEventBus filterDialogEventBus;
+    private final WorkManagerHelper workManagerHelper;
     private StockSchema deleteStock;
     private StockSearchTerm searchTerm;
     private StockFilterTerm filterTerm;
@@ -39,16 +41,22 @@ public class StockListViewController implements StockListViewMvc.Listener,
             , FetchStockListUseCase fetchStockListUseCase
             , CUDStockUseCase cudStockUseCase
             , ConfirmationDialogEventBus dialogEventBus
-            , FilterDialogEventBus filterDialogEventBus) {
+            , FilterDialogEventBus filterDialogEventBus
+            , WorkManagerHelper workManagerHelper) {
         this.toastHelper = toastHelper;
         this.screensNavigator = screenNavigator;
         this.fetchStockListUseCase = fetchStockListUseCase;
         this.cudStockUseCase = cudStockUseCase;
         this.dialogEventBus = dialogEventBus;
         this.filterDialogEventBus = filterDialogEventBus;
+        this.workManagerHelper = workManagerHelper;
         searchTerm = null;
         filterTerm = null;
         liked = false;
+    }
+
+    public void onCreate(){
+        workManagerHelper.startWork();
     }
 
     public void bindView(StockListViewMvc viewMvc){

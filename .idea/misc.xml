@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Win10/AndroidStudioProjects/StocksKhaata/app/src/main/res/drawable/ic_thumb_down.xml" value="0.2703125" />
         <entry key="..\:/Users/Win10/AndroidStudioProjects/StocksKhaata/app/src/main/res/layout/dialog_add_stock.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Win10/AndroidStudioProjects/StocksKhaata/app/src/main/res/layout/filter_dialog.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Win10/AndroidStudioProjects/StocksKhaata/app/src/main/res/layout/fragment_stocks_list.xml" value="0.25416666666666665" />

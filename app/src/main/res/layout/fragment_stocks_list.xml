@@ -114,32 +114,36 @@
                 app:layout_constraintEnd_toEndOf="@+id/net_growth_header"
                 app:layout_constraintStart_toStartOf="@+id/net_growth_header"
                 app:layout_constraintTop_toTopOf="@id/net_growth_text" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/empty_textView"
-            android:layout_width="128dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/no_stock_has_been_added_yet"
-            android:textColor="@color/primaryLightColor"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </com.google.android.material.appbar.AppBarLayout>
+    <LinearLayout
+        android:id="@+id/emptyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="visible"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <ImageView
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:contentDescription="@string/no_stock_has_been_added_yet"
+            android:src="@drawable/ic_thumb_down"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/primaryLightColor"
+            android:text="@string/no_stock_has_been_added_yet"
+            android:textSize="20sp"/>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stats_hud" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -149,7 +153,5 @@
         android:layout_gravity="bottom|end"
         android:contentDescription="@string/add_text"
         android:src="@drawable/ic_add"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:visibility="visible"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

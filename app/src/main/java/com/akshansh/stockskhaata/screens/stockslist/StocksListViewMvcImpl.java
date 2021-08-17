@@ -42,6 +42,11 @@ public class StocksListViewMvcImpl extends BaseObservableViewMvc<StockListViewMv
         setRootView(binding.getRoot());
         adapter = new StockListItemAdapter(viewMvcFactory,this);
         toolbarViewMvc = viewMvcFactory.getToolbarViewMvc(parent);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        manager.setStackFromEnd(true);
+        manager.setReverseLayout(true);
+        binding.recyclerView.setLayoutManager(manager);
+        binding.recyclerView.setAdapter(adapter);
         scrollPositive = 0;
         scrollNegative = 0;
         initToolbar();
@@ -64,13 +69,8 @@ public class StocksListViewMvcImpl extends BaseObservableViewMvc<StockListViewMv
             }
         });
         if(stocks.size() != 0) {
-            LinearLayoutManager manager = new LinearLayoutManager(getContext());
-            manager.setStackFromEnd(true);
-            manager.setReverseLayout(true);
-            binding.recyclerView.setLayoutManager(manager);
-            binding.recyclerView.setAdapter(adapter);
             binding.recyclerView.setVisibility(View.VISIBLE);
-            binding.emptyTextView.setVisibility(View.GONE);
+            binding.emptyView.setVisibility(View.GONE);
             binding.statsHud.setVisibility(View.VISIBLE);
             binding.recyclerView.setOnScrollChangeListener(this);
             adapter.bindView(stocks);
@@ -86,7 +86,7 @@ public class StocksListViewMvcImpl extends BaseObservableViewMvc<StockListViewMv
             }
         } else{
             binding.recyclerView.setVisibility(View.GONE);
-            binding.emptyTextView.setVisibility(View.VISIBLE);
+            binding.emptyView.setVisibility(View.VISIBLE);
             binding.statsHud.setVisibility(View.GONE);
         }
     }

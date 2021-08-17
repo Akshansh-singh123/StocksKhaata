@@ -23,6 +23,7 @@ public class StockListFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getInjector().inject(this);
+        stockListViewController.onCreate();
     }
 
     @Nullable

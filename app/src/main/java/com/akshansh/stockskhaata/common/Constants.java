@@ -17,6 +17,9 @@ public final class Constants {
     public static final String TAG_DATE_DESC = "last_updated_timestamp DESC";
     public static final String EXPAND = "EXPAND";
     public static final String COLLAPSE = "COLLAPSE";
+    public static final String NOTIFICATION_ID = "STOCKS_KHAATA_ID";
+    public static final String NOTIFICATION_CHANNEL = "STOCK_KHAATA_CHANNEL";
+    public static final String NOTIFICATION_NAME = "STOCKS_KHAATA";
     private static final String BSE = "BSE";
     private static final String NSE = "NSE";
 
